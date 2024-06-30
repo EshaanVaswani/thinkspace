@@ -11,7 +11,20 @@ const font = Poppins({
 const Logo = () => {
    return (
       <div className="hidden md:flex items-center gap-x-2">
-         <Image src="/logo.png" alt="logo" width="40" height="40" />
+         <Image
+            src="/logo.png"
+            alt="logo"
+            width="40"
+            height="40"
+            className="dark:hidden"
+         />
+         <Image
+            src="/logo-dark.png"
+            alt="logo"
+            width="40"
+            height="40"
+            className="hidden dark:block"
+         />
          <p className={cn("font-semibold", font.className)}>ThinkSpace</p>
       </div>
    );
