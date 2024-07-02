@@ -3,17 +3,15 @@
 import { ElementRef, useEffect, useRef, useState } from "react";
 import {
    ChevronsLeft,
-   FilePlus,
    Home,
-   Inbox,
    MenuIcon,
    PlusCircle,
    Search,
    Settings,
 } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
-import { usePathname } from "next/navigation";
-import { useMutation, useQuery } from "convex/react";
+import { usePathname, useRouter } from "next/navigation";
+import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
 import { api } from "@/convex/_generated/api";
@@ -21,7 +19,7 @@ import { cn } from "@/lib/utils";
 
 import UserItem from "./user-item";
 import Item from "./item";
-import { useRouter } from "next/navigation";
+import DocumentList from "./document-list";
 
 const Navigation = () => {
    const router = useRouter();
@@ -30,7 +28,6 @@ const Navigation = () => {
 
    const isMobile = useMediaQuery("(max-width: 768px)");
 
-   const documents = useQuery(api.documents.get);
    const create = useMutation(api.documents.create);
 
    const isResizingRef = useRef(false);
@@ -156,7 +153,13 @@ const Navigation = () => {
                <UserItem />
 
                <Item label="Search" icon={Search} onClick={() => {}} isSearch />
-               <Item label="Home" icon={Home} onClick={() => {}} />
+               <Item
+                  label="Home"
+                  icon={Home}
+                  onClick={() => {
+                     router.push("/");
+                  }}
+               />
                <Item label="Settings" icon={Settings} onClick={() => {}} />
                <Item
                   onClick={handleCreate}
@@ -165,7 +168,7 @@ const Navigation = () => {
                />
             </div>
             <div className="mt-4">
-               {documents?.map((doc) => <p key={doc._id}>{doc.title}</p>)}
+               <DocumentList />
             </div>
             <div
                onMouseDown={handleMouseDown}
