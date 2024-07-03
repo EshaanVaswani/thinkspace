@@ -29,6 +29,7 @@ import UserItem from "./user-item";
 import Item from "./item";
 import DocumentList from "./document-list";
 import TrashBox from "./trash-box";
+import { useSettings } from "@/hooks/use-settings";
 
 const Navigation = () => {
    const router = useRouter();
@@ -36,6 +37,7 @@ const Navigation = () => {
    const pathname = usePathname();
 
    const search = useSearch();
+   const settings = useSettings();
 
    const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -176,7 +178,11 @@ const Navigation = () => {
                      router.push("/");
                   }}
                />
-               <Item label="Settings" icon={Settings} onClick={() => {}} />
+               <Item
+                  label="Settings"
+                  icon={Settings}
+                  onClick={settings.onOpen}
+               />
                <Item
                   onClick={handleCreate}
                   label="New page"
