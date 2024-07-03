@@ -12,7 +12,7 @@ import {
    Trash,
 } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
@@ -24,17 +24,20 @@ import {
    PopoverTrigger,
 } from "@/components/ui/popover";
 import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
 
 import UserItem from "./user-item";
 import Item from "./item";
 import DocumentList from "./document-list";
 import TrashBox from "./trash-box";
-import { useSettings } from "@/hooks/use-settings";
+import Navbar from "./navbar";
 
 const Navigation = () => {
    const router = useRouter();
 
    const pathname = usePathname();
+
+   const params = useParams();
 
    const search = useSearch();
    const settings = useSettings();
@@ -218,15 +221,19 @@ const Navigation = () => {
                isMobile && "left-0 w-full"
             )}
          >
-            <nav className="bg-transparent px-3 py-2 w-full">
-               {isCollapsed && (
-                  <MenuIcon
-                     onClick={resetWidth}
-                     role="button"
-                     className="h-6 w-6 text-muted-foreground"
-                  />
-               )}
-            </nav>
+            {!!params.documentId ? (
+               <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+            ) : (
+               <nav className="bg-transparent px-3 py-2 w-full">
+                  {isCollapsed && (
+                     <MenuIcon
+                        onClick={resetWidth}
+                        role="button"
+                        className="h-6 w-6 text-muted-foreground"
+                     />
+                  )}
+               </nav>
+            )}
          </div>
       </>
    );
