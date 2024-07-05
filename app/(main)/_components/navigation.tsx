@@ -135,7 +135,9 @@ const Navigation = () => {
    };
 
    const handleCreate = () => {
-      const promise = create({ title: "Untitled" });
+      const promise = create({ title: "Untitled" }).then((documentId) =>
+         router.push(`/documents/${documentId}`)
+      );
 
       toast.promise(promise, {
          loading: "Creating a new note...",
