@@ -37,6 +37,7 @@ const Editor = ({ onChange, initialContent, editable }: EditorProps) => {
    return (
       <BlockNoteView
          editor={editor}
+         editable={editable}
          theme={resolvedTheme === "dark" ? "dark" : "light"}
          formattingToolbar
          onChange={() => onChange(JSON.stringify(editor.document))}
